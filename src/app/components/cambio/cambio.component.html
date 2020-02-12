@@ -1,0 +1,21 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="convertir()" #formDir="ngForm" novalidate>
+        <div class="row">
+            <label>Tipo</label>
+            <select formControlName="tipo">
+                <option value="D">Dolar</option>
+                <option value="E">Euro</option>
+            </select>
+        </div>
+        <div class="row">
+            <label>Monto: </label>
+            <input type="text" formControlName="monto" />
+            <button type="submit">Convertir</button>
+        </div>
+        <div class="row">
+            <label>Total: </label>
+            <input type="text" formControlName="total" readonly />
+        </div>
+    </form>
+
+</div>
