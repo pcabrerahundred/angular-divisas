@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "divisa": {
@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "divisa"
+    }
+  },
+  "defaultProject": "divisa",
+  "cli": {
+    "analytics": "e12bfe69-c92b-468d-b445-71205ef4b493"
+  }
 }

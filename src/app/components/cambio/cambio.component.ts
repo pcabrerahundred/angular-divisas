@@ -4,6 +4,7 @@ import { Cambio } from './../../shared/cambio';
 import { ApiService } from './../../shared/api.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Observable, interval } from 'rxjs';
+import { CommonModule, CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-cambio',
@@ -16,9 +17,14 @@ export class CambioComponent implements OnInit {
   formMonto: string;
   formTotal: string;
   timer = null;
+  formattedAmount;
+  amount;
+
+  montoReal;
 
   constructor(private cambioApi: ApiService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private currencyPipe : CurrencyPipe) {
 
     this.formTipo = 'tipo';
     this.formMonto = "monto";
@@ -34,12 +40,24 @@ export class CambioComponent implements OnInit {
 
   }
 
+  transformAmount(element){
+    this.montoReal = element.target.value;
+    this.formattedAmount = this.currencyPipe.transform(this.formattedAmount, '$','symbol','1.2-4');
+    element.target.value = this.formattedAmount;
+  }
+
+  transformAmountToEuro(element){
+    //this.formattedAmount = this.currencyPipe.transform(element, '€','symbol','1.2-4');
+    this.form.controls[this.formTotal].setValue(this.currencyPipe.transform(element, '€','symbol','1.2-4'));
+  }
+
   ngOnInit(): void {
   }
 
   convertir() {
-    let xtipo = this.form.get(this.formTipo).value;
-    let xmonto = this.form.get(this.formMonto).value;
+    let xtipo =   this.form.get(this.formTipo).value;
+    //let xmonto = this.form.get(this.formMonto).value;
+    let xmonto = this.montoReal;
     let xdatos = sessionStorage.getItem('datos');
 
     if (xdatos !== null) {
@@ -67,7 +85,8 @@ export class CambioComponent implements OnInit {
 
     this.cambioApi.convertir(c).subscribe(data => {
       //console.log(data);
-      this.form.controls[this.formTotal].setValue(parseFloat(data.total).toFixed(4));
+      //this.form.controls[this.formTotal].setValue(parseFloat(data.total).toFixed(4));
+      this.transformAmountToEuro(data.total);
       // persistir
       var obj = {
         tipo: xtipo,

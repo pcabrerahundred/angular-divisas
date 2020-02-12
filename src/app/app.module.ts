@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { CambioComponent } from './components/cambio/cambio.component';
 import { ApiService } from './shared/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, CurrencyPipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, CurrencyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

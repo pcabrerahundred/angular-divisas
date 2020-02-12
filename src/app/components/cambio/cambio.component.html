@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <label>Monto: </label>
-            <input type="text" formControlName="monto" />
+            <input type="text" formControlName="monto" (blur)="transformAmount($event)" [(ngModel)]="formattedAmount"/>
             <button type="submit">Convertir</button>
         </div>
         <div class="row">
