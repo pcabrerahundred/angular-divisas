@@ -9,7 +9,7 @@
         </div>
         <div class="row">
             <label>Monto: </label>
-            <input name="nmMonto" type="text" formControlName="monto" (blur)="transformAmount($event)" [(ngModel)]="formattedAmount" required/>
+            <input NumberDirective name="nmMonto" type="text" formControlName="monto" (blur)="transformAmount($event)" [(ngModel)]="formattedAmount" required/>
             <button type="submit" [disabled]="form.invalid">Convertir</button>
         </div>
         <div class="row">

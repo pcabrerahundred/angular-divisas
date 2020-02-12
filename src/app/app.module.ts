@@ -9,11 +9,13 @@ import { CambioComponent } from './components/cambio/cambio.component';
 import { ApiService } from './shared/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, CurrencyPipe} from '@angular/common';
+import { NumberDirectiveDirective } from './directives/number-directive.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CambioComponent
+    CambioComponent,
+    NumberDirectiveDirective
   ],
   imports: [
     BrowserModule,
