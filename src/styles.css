@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+.inCircle{
+  background-color: gray;
+  border-radius: 50%;
+}
+.bg-light{
+  background-color: #dedee6 !important;
+}
+.bg-secondary{
+  background-color: #abb1b1 !important;
+}

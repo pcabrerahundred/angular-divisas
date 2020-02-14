@@ -13,7 +13,7 @@ import { CommonModule, CurrencyPipe} from '@angular/common';
 })
 export class CambioComponent implements OnInit {
   form: FormGroup;
-  formTipo: string;
+  // formTipo: string;
   formMonto: string;
   formTotal: string;
   timer = null;
@@ -26,13 +26,13 @@ export class CambioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private currencyPipe : CurrencyPipe) {
 
-    this.formTipo = 'tipo';
+    // this.formTipo = 'tipo';
     this.formMonto = "monto";
     this.formTotal = 'total';
 
     this.form = this.formBuilder.group(
       {
-        tipo: ['', [Validators.required]],
+        // tipo: ['', [Validators.required]],
         monto: ['', [Validators.required]],
         total: ['', null],
       }
@@ -55,7 +55,8 @@ export class CambioComponent implements OnInit {
   }
 
   convertir() {
-    let xtipo =   this.form.get(this.formTipo).value;
+    //let xtipo =   this.form.get(this.formTipo).value;
+    let xtipo =   'D';
     //let xmonto = this.form.get(this.formMonto).value;
     let xmonto = this.montoReal;
     let xdatos = sessionStorage.getItem('datos');
@@ -99,6 +100,9 @@ export class CambioComponent implements OnInit {
         console.log('removeItem');
         this.timer.unsubscribe();
       })
+    },
+    error => {
+        console.log(JSON.stringify(error));
     })
 
   }

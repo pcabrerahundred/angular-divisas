@@ -1,21 +1,19 @@
 <div class="container">
     <form [formGroup]="form" (ngSubmit)="convertir()" #formDir="ngForm" novalidate>
-        <div class="row">
-            <label>Tipo</label>
-            <select formControlName="tipo">
-                <option value="D">Dolar</option>
-                <option value="E">Euro</option>
-            </select>
+      <div class="form-row pt-5 my-5">
+        <div class="col">
+          <label>Monto: </label>
+          <input class="form-control" NumberDirective name="nmMonto" type="text" formControlName="monto" (blur)="transformAmount($event)" [(ngModel)]="formattedAmount" required/>
         </div>
-        <div class="row">
-            <label>Monto: </label>
-            <input NumberDirective name="nmMonto" type="text" formControlName="monto" (blur)="transformAmount($event)" [(ngModel)]="formattedAmount" required/>
-            <button type="submit" [disabled]="form.invalid">Convertir</button>
+        <div class="col">
+          <label>Total: </label>
+          <input class="form-control" type="text" formControlName="total" readonly />
         </div>
-        <div class="row">
-            <label>Total: </label>
-            <input type="text" formControlName="total" readonly />
+      </div>
+      <div class="form-row justify-content-center">
+        <div class="col py-4 text-center">
+          <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-lg">Convertir</button>
         </div>
+      </div>
     </form>
-
 </div>
