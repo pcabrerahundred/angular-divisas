@@ -40,28 +40,32 @@ export class CambioComponent implements OnInit {
 
   }
 
-  transformAmount(element){
+  //Convierte input de doláres al formato de moneda
+  transformAmountToDollar(element){
     this.montoReal = element.target.value;
     this.formattedAmount = this.currencyPipe.transform(this.formattedAmount, '$','symbol','1.2-4');
     element.target.value = this.formattedAmount;
   }
 
+  //Convierte resultado del cambio a formato de moneda euros
   transformAmountToEuro(element){
-    //this.formattedAmount = this.currencyPipe.transform(element, '€','symbol','1.2-4');
     this.form.controls[this.formTotal].setValue(this.currencyPipe.transform(element, '€','symbol','1.2-4'));
   }
 
   ngOnInit(): void {
   }
 
+  //Función que es invocado por el botón Convertir
   convertir() {
-    //let xtipo =   this.form.get(this.formTipo).value;
+
+    //Obtiene los valores del formulario
     let xtipo =   'D';
-    //let xmonto = this.form.get(this.formMonto).value;
     let xmonto = this.montoReal;
     let xdatos = sessionStorage.getItem('datos');
 
+    // Valida si en sessionStorage esta guardado los datos persistidos
     if (xdatos !== null) {
+      //Si se encuentran los datos persistidos, multplicar por el tipo de cambio y mandar los datos al formulario.
       console.log(xdatos);
       let xobj = JSON.parse(xdatos);
       if (xobj.tipo == xtipo) {
@@ -70,6 +74,7 @@ export class CambioComponent implements OnInit {
         return;
       }
       else {
+        //De lo contrario (ya no esta persistido), desactivar la funcion TIMER.
         console.log(this.timer);
         if (this.timer !== null) {
           console.log('unsubcribe');
@@ -78,23 +83,25 @@ export class CambioComponent implements OnInit {
       }
     }
 
+    //Crea el objeto a enviar al API REST
     let c: Cambio = {
       tipo: xtipo,
       monto: parseFloat(xmonto),
       total: 0
     };
 
+    //Invoca al API REST
     this.cambioApi.convertir(c).subscribe(data => {
-      //console.log(data);
-      //this.form.controls[this.formTotal].setValue(parseFloat(data.total).toFixed(4));
       this.transformAmountToEuro(data.total);
-      // persistir
+      
+      // Crea Objeto para persistir los datos en SessionStorage
       var obj = {
         tipo: xtipo,
         tasa: data.tasa,
       }
       sessionStorage.setItem('datos', JSON.stringify(obj));
 
+      // Crea el TIMER (en mílisegundos). Cuando se cumple el tiempo, borra los datos persistidos en SessionStorage  
       this.timer = interval(10000).subscribe(x => {
         sessionStorage.removeItem('datos');
         console.log('removeItem');

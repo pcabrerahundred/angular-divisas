@@ -1,18 +1,18 @@
 <div class="container">
     <form [formGroup]="form" (ngSubmit)="convertir()" #formDir="ngForm" novalidate>
-      <div class="form-row pt-5 my-5">
-        <div class="col">
-          <label>Monto: </label>
-          <input class="form-control" NumberDirective name="nmMonto" type="text" formControlName="monto" (blur)="transformAmount($event)" [(ngModel)]="formattedAmount" required/>
+      <div class="form-row pt-5 mt-5">
+        <div class="col mr-5 font-weight-bold">
+          <label>Dólares: </label>
+          <input class="form-control" NumberDirective name="nmMonto" type="text" formControlName="monto" (blur)="transformAmountToDollar($event)" [(ngModel)]="formattedAmount" required/>
         </div>
-        <div class="col">
-          <label>Total: </label>
+        <div class="col font-weight-bold">
+          <label>Euros: </label>
           <input class="form-control" type="text" formControlName="total" readonly />
         </div>
       </div>
       <div class="form-row justify-content-center">
         <div class="col py-4 text-center">
-          <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-lg">Convertir</button>
+          <button type="submit" [disabled]="form.invalid" class="btn btn-dark btn-lg">Convertir</button>
         </div>
       </div>
     </form>

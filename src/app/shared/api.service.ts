@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   providedIn: 'root'
 })
 export class ApiService {
-  endpoint: string = 'http://localhost:49548/api';
+  endpoint: string = 'http://localhost:55581/api';
 
   constructor(private http: HttpClient) {
   }
@@ -24,14 +24,16 @@ export class ApiService {
     )
   }
 
-  errorMgmt(error: HttpErrorResponse) {
+  private errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
+      console.error('client-side error ', error.error.message);
     } else {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      console.error('server-side error ', error);
     }
     console.log(errorMessage);
     return throwError(errorMessage);
